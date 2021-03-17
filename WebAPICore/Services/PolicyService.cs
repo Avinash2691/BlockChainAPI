@@ -29,5 +29,40 @@ namespace WebAPICore.Services
             
             return policyDetails;
         }
+        public string PolicyCreateUpdate(Policy policy)
+        {
+            string result = string.Empty;
+            var policyDetails = dbContext.Policies.FirstOrDefault(x => x.PolicyNumber == policy.PolicyNumber);
+
+            //create policy 
+            if (policyDetails == null)
+            {
+                policyDetails = new Policy();
+
+                policyDetails.PolicyEffectiveDate = policy.PolicyEffectiveDate;
+                policyDetails.PolicyExpiryDate = policy.PolicyExpiryDate;
+                policyDetails.PolicyName = policy.PolicyName;
+                policyDetails.PolicyNumber = policy.PolicyNumber;
+                policyDetails.Active = policy.Active;
+                dbContext.Policies.Add(policyDetails);
+                dbContext.SaveChanges();
+
+                result = "Policy has been created successfully";
+            }
+            else
+            //update policy 
+            {
+                policyDetails.PolicyEffectiveDate = policy.PolicyEffectiveDate;
+                policyDetails.PolicyExpiryDate = policy.PolicyExpiryDate;
+                policyDetails.PolicyName = policy.PolicyName;
+                policyDetails.PolicyNumber = policy.PolicyNumber;
+                policyDetails.Active = policy.Active;
+                dbContext.SaveChanges();
+
+                result = "Policy has been updated successfully";
+            }
+
+            return result;
+        }
     }
 }

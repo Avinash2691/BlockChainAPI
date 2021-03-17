@@ -44,5 +44,14 @@ namespace WebAPICore.Controllers
                 return result;
             }
         }
+
+        [HttpPost, Route("api/Policy/PolicyCreateUpdate")]
+        [Route("[action]")]
+        public IActionResult PolicyCreateUpdate(Policy policy)
+        {
+            string policyMessage = policyService.PolicyCreateUpdate(policy);
+            var result = new OkObjectResult(new { message = policyMessage });
+            return result;
+        }
     }
 }

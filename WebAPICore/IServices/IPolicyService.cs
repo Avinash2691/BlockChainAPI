@@ -10,5 +10,7 @@ namespace WebAPICore.IServices
     {
         IEnumerable<Policy> GetListPolicies();
         Policy GetPolicyById(string policyno);
+
+        string PolicyCreateUpdate(Policy policy);
     }
 }
